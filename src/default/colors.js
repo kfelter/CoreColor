@@ -34,32 +34,25 @@ const defaultColors = [{
     likes: 1111110,
   },
   {
-    name: "Afiniti Cerise",
+    name: "NO Cerise",
     value: "#e6264a",
     textvalue: "#000",
     description: "The color of Unhuman Intelligence",
     likes: 0,
   },
   {
-    name: "Afiniti Obsidian",
+    name: "NO Obsidian",
     value: "#020a20",
     textvalue: "#FFF",
-    description: "A Wholesome Blue",
+    description: "Not a wholesome blue",
     likes: 0,
   },
   {
     name: "Karakoram Blue",
     value: "#f1f4ff",
     textvalue: "#333",
-    description: "A Regal Green",
+    description: "light and fluffy",
     likes: 1111110,
-  },
-  {
-    name: "Clear Day",
-    value: "#184ca0",
-    textvalue: "#FFF",
-    description: "A Wholesome Blue",
-    likes: 0,
   }]
 
   export default defaultColors;
