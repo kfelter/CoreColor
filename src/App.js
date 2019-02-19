@@ -12,7 +12,7 @@ import defaultColors from './default/colors.js'
 const url = 'https://d54gu4us6a.execute-api.us-east-1.amazonaws.com/dev/CoreColor'
 
 class App extends Component {
-  api_colors = fetch('https://d54gu4us6a.execute-api.us-east-1.amazonaws.com/dev/CoreColor', {
+  api_colors = fetch(url, {
     headers: {
       "Accept": "application/json"
     }, // 'cors' by default
@@ -20,14 +20,14 @@ class App extends Component {
   })
     .then((response) => {
       // Do something with response
-      console.log(response)
+      // console.log(response)
       return response.json()
     }).then((data)=>{
       let output = Object.keys(data).map((key) => {
-        console.log(data[key])
+        // console.log(data[key])
         return { ...data[key] };
       });
-      this.setState({...this.state, colors: output})
+      this.setState({...this.state, colors: output.reverse()})
     }).catch(err => {console.log(err)});
   state = {
     showInputForm: false,
@@ -36,15 +36,32 @@ class App extends Component {
   handleNewColor = (color) => {
     const newColors = [color, ...this.state.colors]
     this.setState({ colors: newColors })
-    console.log("handleNewColor", color, this.state.colors)
+    fetch(url, {
+      method: "POST",
+      headers: {
+        'access-control-allow-methods': '*',
+        'access-control-allow-origin': '*'
+      },
+      body: JSON.stringify(color),
+      referrer: "no-referrer"
+    })
+    // console.log("handleNewColor", color, this.state.colors)
   }
   showInputForm = () => {
     let t = !this.state.showInputForm
     this.setState({ ...this.state, showInputForm: t })
-    console.log(this.state.showInputForm)
+    // console.log(this.state.showInputForm)
   }
   handleLike = (likedcolor) => {
     const updated = this.state.colors.map(color => { return color === likedcolor ? { ...color, likes: color.likes + 1, } : color })
+    fetch(url + "?id=" + likedcolor.id, {
+      method: "PUT",
+      headers: {
+        'access-control-allow-methods': '*',
+        'access-control-allow-origin': '*'
+      },
+      referrer: "no-referrer"
+    })
     this.setState({ ...this.state, colors: updated })
   }
   render() {
