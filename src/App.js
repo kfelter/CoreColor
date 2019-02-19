@@ -9,57 +9,77 @@ import AddIcon from '@material-ui/icons/Add';
 import ColorInputForm from './ColorInputForm.js';
 import defaultColors from './default/colors.js'
 
+const url = 'https://d54gu4us6a.execute-api.us-east-1.amazonaws.com/dev/CoreColor'
+
 class App extends Component {
+  api_colors = fetch('https://d54gu4us6a.execute-api.us-east-1.amazonaws.com/dev/CoreColor', {
+    headers: {
+      "Accept": "application/json"
+    }, // 'cors' by default
+    referrer: "no-referrer"
+  })
+    .then((response) => {
+      // Do something with response
+      console.log(response)
+      return response.json()
+    }).then((data)=>{
+      let output = Object.keys(data).map((key) => {
+        console.log(data[key])
+        return { ...data[key] };
+      });
+      this.setState({...this.state, colors: output})
+    }).catch(err => {console.log(err)});
   state = {
     showInputForm: false,
-    colors: defaultColors,
+    colors: [],
   }
-  handleNewColor = (color) =>{
+  handleNewColor = (color) => {
     const newColors = [color, ...this.state.colors]
-    this.setState({colors: newColors})
+    this.setState({ colors: newColors })
     console.log("handleNewColor", color, this.state.colors)
   }
-  showInputForm = () =>{
+  showInputForm = () => {
     let t = !this.state.showInputForm
-    this.setState({...this.state,showInputForm: t})
+    this.setState({ ...this.state, showInputForm: t })
     console.log(this.state.showInputForm)
   }
   handleLike = (likedcolor) => {
-      const updated = this.state.colors.map(color => {return color === likedcolor? {...color, likes: color.likes+1,}: color})
-      this.setState({...this.state, colors: updated })
+    const updated = this.state.colors.map(color => { return color === likedcolor ? { ...color, likes: color.likes + 1, } : color })
+    this.setState({ ...this.state, colors: updated })
   }
   render() {
     return (
       <div className="App">
-      <span>
-      <Fab onClick={this.showInputForm} style={{position: "fixed", left: 10, top: 10}}>
-        <AddIcon/>
-      </Fab>
-      <ColorList 
-        showInput={this.state.showInputForm} 
-        colors={this.state.colors} 
-        update={this.handleNewColor}
-        liked={this.handleLike}/>
-      </span>
+        <span>
+          <Fab onClick={this.showInputForm} style={{ position: "fixed", left: 10, top: 10 }}>
+            <AddIcon />
+          </Fab>
+          {this.state.colors !== undefined && <ColorList
+            showInput={this.state.showInputForm}
+            colors={this.state.colors}
+            update={this.handleNewColor}
+            liked={this.handleLike} />}
+        </span>
       </div>
     );
   }
 }
 
 class ColorList extends Component {
-  render(){
-    return (
-      <div style={{position: "absoloute", marginLeft: 70}}>
-      <Grid container className="color-list" spacing={8}>
-        <Grid item>
-          <Grid container className="item" justify="flex-start" spacing={8}>
-          {this.props.showInput && <ColorInputForm update={this.props.update}/>}
-          {this.props.colors.map((color, i) => <Grid key={i} item><ColorCard liked={this.props.liked} color={color} key={i} style={{display: "flex"}}/></Grid>)}
+  render() {
+
+      return (
+        <div style={{ position: "absoloute", marginLeft: 70 }}>
+          <Grid container className="color-list" spacing={8}>
+            <Grid item>
+              <Grid container className="item" justify="flex-start" spacing={8}>
+                {this.props.showInput && <ColorInputForm update={this.props.update} />}
+                {this.props.colors.map((color, i) => <Grid key={i} item><ColorCard liked={this.props.liked} color={color} key={i} style={{ display: "flex" }} /></Grid>)}
+              </Grid>
+            </Grid>
           </Grid>
-        </Grid>
-      </Grid>
-      </div>
-    )
+        </div>
+      )
   }
 }
 
