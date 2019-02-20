@@ -7,7 +7,6 @@ import { Component } from 'react';
 import CardHeader from '@material-ui/core/CardHeader';
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import colors from './default/colors.js'
 
 
 

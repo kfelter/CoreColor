@@ -1,14 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
+
 import CardContent from '@material-ui/core/CardContent';
 import { withStyles } from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+
 import { Component } from 'react';
 import TextField from "@material-ui/core/TextField";
-import Divider from "@material-ui/core/Divider";
+
 
 
 
@@ -62,7 +62,7 @@ class ColorInputForm extends Component {
                     style={{margin: 5}}
                     margin="normal"
                     variant="filled"
-                    style={{width:600}}
+                    // style={{width:600}}
                     />
                     <TextField onChange={this.colorChange}
                         id="standard-color"

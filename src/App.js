@@ -7,14 +7,15 @@ import AddIcon from '@material-ui/icons/Add';
 
 
 import ColorInputForm from './ColorInputForm.js';
-import defaultColors from './default/colors.js'
 
 const url = 'https://d54gu4us6a.execute-api.us-east-1.amazonaws.com/dev/CoreColor'
+const apikey = 'colorshow'
 
 class App extends Component {
   api_colors = fetch(url, {
     headers: {
-      "Accept": "application/json"
+      "Accept": "application/json",
+      "api-key": apikey
     }, // 'cors' by default
     referrer: "no-referrer"
   })
@@ -40,7 +41,8 @@ class App extends Component {
       method: "POST",
       headers: {
         'access-control-allow-methods': '*',
-        'access-control-allow-origin': '*'
+        'access-control-allow-origin': '*',
+        "api-key": apikey
       },
       body: JSON.stringify(color),
       referrer: "no-referrer"
@@ -58,7 +60,8 @@ class App extends Component {
       method: "PUT",
       headers: {
         'access-control-allow-methods': '*',
-        'access-control-allow-origin': '*'
+        'access-control-allow-origin': '*',
+        "api-key": apikey
       },
       referrer: "no-referrer"
     })
