@@ -14,7 +14,7 @@ const url = 'https://d54gu4us6a.execute-api.us-east-1.amazonaws.com/dev/CoreColo
 class App extends Component {
   api_colors = fetch(url, {
     headers: {
-      "Accept": "application/json"
+      "Accept": "application/json",
       //"api-key": apikey
     }, // 'cors' by default
     referrer: "no-referrer"
@@ -40,8 +40,8 @@ class App extends Component {
     fetch(url, {
       method: "POST",
       headers: {
-        'access-control-allow-methods': '*',
-        'access-control-allow-origin': '*'
+        'access-control-allow-origin': '*',
+        'Access-Control-Allow-Methods': '*'
         //"api-key": apikey
       },
       body: JSON.stringify(color),
@@ -59,8 +59,8 @@ class App extends Component {
     fetch(url + "?id=" + likedcolor.id, {
       method: "PUT",
       headers: {
-        'access-control-allow-methods': '*',
-        'access-control-allow-origin': '*'
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': '*'
         //"api-key": apikey
       },
       referrer: "no-referrer"
