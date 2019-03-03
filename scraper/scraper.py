@@ -1,5 +1,5 @@
 from getreq import *
-import requests, datetime, json
+import requests, datetime, json, colour
 
 color_of_the_day_url = 'https://www.pantone.com/color-intelligence/color-education/colorstrology'
 hueput_api_url = 'https://d54gu4us6a.execute-api.us-east-1.amazonaws.com/dev/CoreColor'
@@ -14,8 +14,16 @@ if __name__ == "__main__":
     content = simple_get(color_of_the_day_url)
     name, description, value = getColor(content)
     description = datetime.datetime.today().strftime('%b %d, %Y') + " Pantone's Color of the Day"
-    r = requests.post(hueput_api_url, data=json.dumps({'name': name, 'description': description, 'value': value, 'textvalue':'#FFFFFF'}))
-    print(r.status_code)
+
+    rgb = colour.Color(value).rgb
+
+    textvalue = "#000000"
+
+    for v in rgb:
+        if v < 0.7:
+            textvalue = "#FFFFFF"
+    r = requests.post(hueput_api_url, data=json.dumps({'name': name, 'description': description, 'value': value, 'textvalue':textvalue}))
+    print(name, value, r.status_code)
     
 
 

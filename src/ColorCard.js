@@ -18,6 +18,12 @@ class ColorCard extends Component {
     }
     render() {
         let color = this.props.color
+        // if (color === undefined){
+        //     return <div/>
+        // }
+        // if (color.name === undefined){
+        //     return <div/>
+        // }
         if (color.name.length > 40) {
             color.name = color.name.substring(0, 30)+"...";
         }

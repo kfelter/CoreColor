@@ -21,11 +21,12 @@ class App extends Component {
   })
     .then((response) => {
       // Do something with response
-      // console.log(response)
       return response.json()
     }).then((data)=>{
+      let lifetimeCalls = data["lambda-lifetime-calls"]
+      console.log(lifetimeCalls)
+      delete data["lambda-lifetime-calls"]
       let output = Object.keys(data).map((key) => {
-        // console.log(data[key])
         return { ...data[key] };
       });
       this.setState({...this.state, colors: output.reverse()})
