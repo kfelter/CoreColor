@@ -1,5 +1,5 @@
 {
-  "homepage" : "https://s3.amazonaws.com/core-color",
+  "homepage": "https://s3.amazonaws.com/core-color",
   "name": "color-picker",
   "version": "0.1.0",
   "private": true,
